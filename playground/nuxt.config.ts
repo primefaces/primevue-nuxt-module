@@ -3,13 +3,6 @@ export default defineNuxtConfig({
   primevue: {
     options: {
       // ripple, inputStyle etc.
-      unstyled: true,
-      ripple: true,
-      pt: {
-        button: {
-          label: 'MMMM'
-        }
-      }
     },
     components: {
       prefix: '',
