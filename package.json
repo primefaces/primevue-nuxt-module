@@ -56,7 +56,6 @@
     "eslint": "^8.49.0",
     "nuxt": "^3.7.3",
     "vitest": "^0.33.0",
-    "defu": "^6.1.2",
     "prettier": "2.7.1"
   },
   "peerDependencies": {

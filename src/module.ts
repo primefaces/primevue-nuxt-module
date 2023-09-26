@@ -1,7 +1,6 @@
-import { defineNuxtModule, addPlugin, createResolver, addServerPlugin } from '@nuxt/kit';
+import { addPlugin, addServerPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import { register } from './register';
 import type { ModuleOptions } from './types';
-import { defu } from 'defu';
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -17,10 +16,10 @@ export default defineNuxtModule<ModuleOptions>({
     const resolver = createResolver(import.meta.url);
     const registered = register(moduleOptions);
 
-    nuxt.options.runtimeConfig.public.primevue = defu(nuxt.options.runtimeConfig.public.primevue, {
+    nuxt.options.runtimeConfig.public.primevue = {
       ...registered,
       options: moduleOptions.options
-    });
+    };
 
     nuxt.options.build.transpile.push('nuxt');
     nuxt.options.build.transpile.push('primevue');
