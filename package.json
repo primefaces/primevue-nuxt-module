@@ -1,12 +1,23 @@
 {
   "name": "@nuxtjs/primevue",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Nuxt module for PrimeVue",
+  "keywords": [
+    "vue",
+    "vue.js",
+    "vue3",
+    "nuxt",
+    "nuxt3",
+    "primevue",
+    "primevue nuxt module",
+    "primevue nuxt3"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/primefaces/primevue-nuxt-module.git"
   },
   "license": "MIT",
+  "sideEffects": false,
   "type": "module",
   "exports": {
     ".": {
@@ -25,24 +36,15 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "release": "npm run format && npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "format": "prettier --write \"**/*.{vue,ts,d.ts}\" --cache"
   },
-  "keywords": [
-    "vue",
-    "vue.js",
-    "vue3",
-    "nuxt",
-    "nuxt3",
-    "primevue",
-    "primevue nuxt module",
-    "primevue nuxt3"
-  ],
   "dependencies": {
-    "@nuxt/kit": "^3.7.3"
+    "@nuxt/kit": "^3.7.3",
+    "primevue": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.17.17",
@@ -58,7 +60,7 @@
     "vitest": "^0.33.0",
     "prettier": "2.7.1"
   },
-  "peerDependencies": {
-    "primevue": "^3.0.0"
+  "publishConfig": {
+    "access": "public"
   }
 }
