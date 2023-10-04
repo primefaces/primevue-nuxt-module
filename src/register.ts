@@ -9,7 +9,7 @@ import type { ComposablesType } from './runtime/core/composables/types';
 import type { DirectivesType } from './runtime/core/directives/types';
 import type { ModuleOptions } from './types';
 
-function registerItems(items: any[] = [], options: ComponentsType, params: any) {
+function registerItems(items: any[] = [], options: ComponentsType = {}, params: any) {
   const imported = Utils.object.getValue(options.import, params);
   const excluded = Utils.object.getValue(options.exclude, params);
 
@@ -22,7 +22,7 @@ function registerItems(items: any[] = [], options: ComponentsType, params: any) 
   });
 }
 
-function registerComponents(options: ComponentsType) {
+function registerComponents(options: ComponentsType = {}) {
   const _components = registerItems(components, options, { components });
 
   _components.forEach((component) =>
@@ -37,7 +37,7 @@ function registerComponents(options: ComponentsType) {
   return _components;
 }
 
-function registerDirectives(options: DirectivesType) {
+function registerDirectives(options: DirectivesType = {}) {
   const _directives = registerItems(directives, options, { directives });
 
   _directives.forEach((directive) => ({
@@ -48,7 +48,7 @@ function registerDirectives(options: DirectivesType) {
   return _directives;
 }
 
-function registerComposables(options: ComposablesType) {
+function registerComposables(options: ComposablesType = {}) {
   const _composables = registerItems(composables, options, { composables });
 
   _composables.forEach((composable) =>

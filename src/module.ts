@@ -10,7 +10,25 @@ export default defineNuxtModule<ModuleOptions>({
       nuxt: '^3.0.0'
     }
   },
-  defaults: {},
+  defaults: {
+    usePrimeVue: true,
+    options: {},
+    components: {
+      prefix: '',
+      import: [],
+      exclude: []
+    },
+    directives: {
+      prefix: '',
+      import: [],
+      exclude: []
+    },
+    composables: {
+      prefix: '',
+      import: [],
+      exclude: []
+    }
+  },
   hooks: {},
   setup(moduleOptions, nuxt) {
     const resolver = createResolver(import.meta.url);
@@ -57,6 +75,10 @@ export { importStyleModules };
 
     //nuxt.options.build.transpile.push('nuxt');
     nuxt.options.build.transpile.push('primevue');
+
+    nuxt.options.vite.optimizeDeps = nuxt.options.vite.optimizeDeps || {};
+    nuxt.options.vite.optimizeDeps.include = nuxt.options.vite.optimizeDeps.include || [];
+    nuxt.options.vite.optimizeDeps.include.push('primevue');
 
     addPlugin(resolver.resolve('./runtime/plugin.client'));
   }
