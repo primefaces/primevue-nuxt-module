@@ -15,8 +15,8 @@ function registerItems(items: any[] = [], options: ComponentsType, params: any) 
 
   return items.filter((item) => {
     const name = item?.name;
-    const matchedIm = imported?.length > 0 ? imported.some((im: string) => name?.toLowerCase() === im) : true;
-    const matchedEx = excluded?.length > 0 ? excluded.some((ex: string) => name?.toLowerCase() === ex) : false;
+    const matchedIm = imported?.length > 0 ? imported.some((im: string) => name?.toLowerCase() === im.toLowerCase()) : true;
+    const matchedEx = excluded?.length > 0 ? excluded.some((ex: string) => name?.toLowerCase() === ex.toLowerCase()) : false;
 
     return matchedIm && !matchedEx;
   });

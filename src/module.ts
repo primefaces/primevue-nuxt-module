@@ -1,4 +1,4 @@
-import { addPlugin, addServerPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
+import { addPlugin, addTemplate, createResolver, defineNuxtModule } from '@nuxt/kit';
 import { register } from './register';
 import type { ModuleOptions } from './types';
 
@@ -16,15 +16,48 @@ export default defineNuxtModule<ModuleOptions>({
     const resolver = createResolver(import.meta.url);
     const registered = register(moduleOptions);
 
+    const styleContent = `
+async function importStyleModules() {
+  try {
+    const modules = await Promise.all([
+      ${[registered.components, registered.directives]
+        .flat()
+        .reduce((acc: any[], citem: any) => (acc.some((item) => item.name.toLowerCase() === citem.name.toLowerCase()) ? acc : [...acc, citem]), [])
+        .map((item: any) => `import('primevue/${item.name.toLowerCase()}/style')`)
+        .join(',')}
+    ]);
+
+    return modules.map((module) => module && module.getStyleSheet ? module.getStyleSheet() : '').join('');
+  } catch (error) {
+    console.error('PrimeVue Nuxt Module: ', error);
+  }
+}
+
+export { importStyleModules };
+`;
+    nuxt.options.alias['#primevue-style'] = addTemplate({
+      filename: 'primevue-style.mjs',
+      getContents: () => styleContent
+    }).dst;
+
     nuxt.options.runtimeConfig.public.primevue = {
       ...registered,
       options: moduleOptions.options
     };
 
-    nuxt.options.build.transpile.push('nuxt');
+    nuxt.hook('nitro:config', async (config) => {
+      config.externals = config.externals || {};
+      config.externals.inline = config.externals.inline || [];
+      config.externals.inline.push(resolver.resolve('./runtime/plugin.server'));
+      config.virtual = config.virtual || {};
+      config.virtual['#primevue-style'] = styleContent;
+      config.plugins = config.plugins || [];
+      config.plugins.push(resolver.resolve('./runtime/plugin.server'));
+    });
+
+    //nuxt.options.build.transpile.push('nuxt');
     nuxt.options.build.transpile.push('primevue');
 
-    addServerPlugin(resolver.resolve('./runtime/plugin.server'));
     addPlugin(resolver.resolve('./runtime/plugin.client'));
   }
 });

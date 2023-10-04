@@ -1,37 +1,28 @@
 import { defineNuxtPlugin, useRuntimeConfig } from 'nuxt/app';
 
 import PrimeVue from 'primevue/config';
-import BadgeDirective from 'primevue/badgedirective';
-import Ripple from 'primevue/ripple';
-import StyleClass from 'primevue/styleclass';
-import Tooltip from 'primevue/tooltip';
-import FocusTrap from 'primevue/focustrap';
-
-import ConfirmationService from 'primevue/confirmationservice';
-import DialogService from 'primevue/dialogservice';
-import ToastService from 'primevue/toastservice';
 
 export default defineNuxtPlugin(({ vueApp }) => {
   const runtimeConfig = useRuntimeConfig();
   const config: any = runtimeConfig?.public?.primevue ?? {};
-  const { options = {}, components = [], directives = [] } = config;
+  const { usePrimeVue = true, options = {}, components = [], directives = [] } = config;
   const services = new Set();
 
-  vueApp.use(PrimeVue, options);
+  usePrimeVue && vueApp.use(PrimeVue, options);
 
-  components.forEach((component) => services.add(component?.use?.as));
+  components.forEach((component: any) => component?.use && services.add(component.use.as));
   services.forEach((service) => {
     switch (service) {
       case 'ConfirmationService':
-        vueApp.use(ConfirmationService);
+        vueApp.use(async () => await import('primevue/confirmationservice'));
         break;
 
       case 'DialogService':
-        vueApp.use(DialogService);
+        vueApp.use(async () => await import('primevue/dialogservice'));
         break;
 
       case 'ToastService':
-        vueApp.use(ToastService);
+        vueApp.use(async () => await import('primevue/toastservice'));
         break;
 
       default:
@@ -39,26 +30,26 @@ export default defineNuxtPlugin(({ vueApp }) => {
     }
   });
 
-  directives.forEach((directive) => {
+  directives.forEach((directive: any) => {
     switch (directive.as) {
       case 'BadgeDirective':
-        vueApp.directive(directive.name, BadgeDirective);
+        vueApp.directive(directive.name, async () => await import('primevue/badgedirective'));
         break;
 
       case 'Tooltip':
-        vueApp.directive(directive.name, Tooltip);
+        vueApp.directive(directive.name, async () => await import('primevue/tooltip'));
         break;
 
       case 'Ripple':
-        vueApp.directive(directive.name, Ripple);
+        vueApp.directive(directive.name, async () => await import('primevue/ripple'));
         break;
 
       case 'StyleClass':
-        vueApp.directive(directive.name, StyleClass);
+        vueApp.directive(directive.name, async () => await import('primevue/styleclass'));
         break;
 
       case 'FocusTrap':
-        vueApp.directive(directive.name, FocusTrap);
+        vueApp.directive(directive.name, async () => await import('primevue/focustrap'));
         break;
 
       default:

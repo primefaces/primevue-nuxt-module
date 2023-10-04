@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   modules: ['../src/module'],
   primevue: {
+    usePrimeVue: true,
     options: {
       // ripple, inputStyle etc.
     },
