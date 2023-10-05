@@ -76,10 +76,6 @@ export { importStyleModules };
     //nuxt.options.build.transpile.push('nuxt');
     nuxt.options.build.transpile.push('primevue');
 
-    nuxt.options.vite.optimizeDeps = nuxt.options.vite.optimizeDeps || {};
-    nuxt.options.vite.optimizeDeps.include = nuxt.options.vite.optimizeDeps.include || [];
-    nuxt.options.vite.optimizeDeps.include.push('primevue');
-
     addPlugin(resolver.resolve('./runtime/plugin.client'));
   }
 });
