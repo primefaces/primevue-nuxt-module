@@ -35,20 +35,30 @@ export default defineNuxtModule<ModuleOptions>({
     const registered = register(moduleOptions);
 
     const styleContent = `
-async function importStyleModules() {
-  try {
-    const modules = await Promise.all([
-      ${[registered.components, registered.directives]
-        .flat()
-        .reduce((acc: any[], citem: any) => (acc.some((item) => item.name.toLowerCase() === citem.name.toLowerCase()) ? acc : [...acc, citem]), [])
-        .map((item: any) => `import('primevue/${item.name.toLowerCase()}/style')`)
-        .join(',')}
-    ]);
+import { useRuntimeConfig } from '#imports';
 
-    return modules.map((module) => module && module.getStyleSheet ? module.getStyleSheet() : '').join('');
-  } catch (error) {
-    console.error('PrimeVue Nuxt Module: ', error);
+async function importStyleModules() {
+  const runtimeConfig = useRuntimeConfig();
+  const config = runtimeConfig?.public?.primevue ?? {};
+  const { options = {} } = config;
+
+  if (!options.unstyled) {
+    try {
+      const modules = await Promise.all([
+        ${[registered.components, registered.directives]
+          .flat()
+          .reduce((acc: any[], citem: any) => (acc.some((item) => item.name.toLowerCase() === citem.name.toLowerCase()) ? acc : [...acc, citem]), [])
+          .map((item: any) => `import('primevue/${item.name.toLowerCase()}/style')`)
+          .join(',')}
+      ]);
+
+      return modules.map((module) => module && module.getStyleSheet ? module.getStyleSheet() : '').join('');
+    } catch (error) {
+      console.error('PrimeVue Nuxt Module: ', error);
+    }
   }
+
+  return Promise.resolve('');
 }
 
 export { importStyleModules };
