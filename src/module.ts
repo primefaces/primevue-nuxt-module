@@ -42,23 +42,21 @@ async function importStyleModules() {
   const config = runtimeConfig?.public?.primevue ?? {};
   const { options = {} } = config;
 
-  if (!options.unstyled) {
-    try {
-      const modules = await Promise.all([
-        ${[registered.components, registered.directives]
-          .flat()
-          .reduce((acc: any[], citem: any) => (acc.some((item) => item.name.toLowerCase() === citem.name.toLowerCase()) ? acc : [...acc, citem]), [])
-          .map((item: any) => `import('primevue/${item.name.toLowerCase()}/style')`)
-          .join(',')}
-      ]);
+  try {
+    const modules = await Promise.all([
+      import('primevue/base/style'),
+      ${registered.components.length > 0 ? `!options.unstyled ? import('primevue/basecomponent/style') : ''` : ''},
+      ${[registered.components, registered.directives]
+        .flat()
+        .reduce((acc: any[], citem: any) => (acc.some((item) => item.name.toLowerCase() === citem.name.toLowerCase()) ? acc : [...acc, citem]), [])
+        .map((item: any) => `!options.unstyled ? import('primevue/${item.name.toLowerCase()}/style') : ''`)
+        .join(',')}
+    ]);
 
-      return modules.map((module) => module && module.getStyleSheet ? module.getStyleSheet() : '').join('');
-    } catch (error) {
-      console.error('PrimeVue Nuxt Module: ', error);
-    }
+    return modules.map((module) => module && module.getStyleSheet ? module.getStyleSheet() : '').join('');
+  } catch (error) {
+    console.error('PrimeVue Nuxt Module: ', error);
   }
-
-  return Promise.resolve('');
 }
 
 export { importStyleModules };
