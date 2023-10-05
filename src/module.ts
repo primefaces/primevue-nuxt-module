@@ -1,4 +1,4 @@
-import { addPlugin, addTemplate, createResolver, defineNuxtModule } from '@nuxt/kit';
+import { addPlugin, addPluginTemplate, addTemplate, createResolver, defineNuxtModule } from '@nuxt/kit';
 import { register } from './register';
 import type { ModuleOptions } from './types';
 
@@ -87,5 +87,25 @@ export { importStyleModules };
     nuxt.options.build.transpile.push('primevue');
 
     addPlugin(resolver.resolve('./runtime/plugin.client'));
+
+    addPluginTemplate({
+      filename: 'primevue-config-plugin.server.mjs',
+      mode: 'server',
+      getContents() {
+        return `
+import { defineNuxtPlugin, useRuntimeConfig } from '#imports';
+
+import PrimeVue from 'primevue/config';
+
+export default defineNuxtPlugin(({ vueApp }) => {
+  const runtimeConfig = useRuntimeConfig();
+  const config = runtimeConfig?.public?.primevue ?? {};
+  const { usePrimeVue = true } = config;
+
+  usePrimeVue && vueApp.use(PrimeVue, ${JSON.stringify(moduleOptions.options)});
+})
+        `;
+      }
+    });
   }
 });
