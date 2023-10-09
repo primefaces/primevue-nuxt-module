@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     usePrimeVue: true,
     options: {
       // ripple, inputStyle etc.
+      ripple: true,
       pt: {
         panel: {
           header: 'my-panel-header'
@@ -11,18 +12,18 @@ export default defineNuxtConfig({
       }
     },
     components: {
-      prefix: '',
-      import: ['Panel', 'Button'],
+      prefix: 'p',
+      include: '*',
       exclude: []
     },
     directives: {
       prefix: '',
-      import: [],
+      include: [],
       exclude: '*'
     },
     composables: {
       prefix: '',
-      import: [],
+      include: [],
       exclude: []
     }
   },

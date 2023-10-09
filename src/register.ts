@@ -11,15 +11,15 @@ import type { ConstructsType, ItemType } from './runtime/core/types';
 import type { ModuleOptions, ResolvePathOptions } from './types';
 
 function registerItems(items: any[] = [], options: ConstructsType = {}, params: any) {
-  const imported = Utils.object.getValue(options.import, params);
+  const included = Utils.object.getValue(options.include, params);
   const excluded = Utils.object.getValue(options.exclude, params);
 
   return items.filter((item) => {
     const name = item?.name;
-    const matchedIm = imported !== '*' ? (imported?.length > 0 ? imported.some((im: string) => name?.toLowerCase() === im.toLowerCase()) : true) : true;
-    const matchedEx = excluded !== '*' ? (excluded?.length > 0 ? excluded.some((ex: string) => name?.toLowerCase() === ex.toLowerCase()) : false) : true;
+    const matchedIn = included === '*' || included === undefined ? true : Utils.object.isNotEmpty(included) ? included.some((inc: string) => name?.toLowerCase() === inc.toLowerCase()) : false;
+    const matchedEx = excluded === '*' ? true : Utils.object.isNotEmpty(excluded) ? excluded.some((exc: string) => name?.toLowerCase() === exc.toLowerCase()) : false;
 
-    return matchedIm && !matchedEx;
+    return matchedIn && !matchedEx;
   });
 }
 
@@ -125,9 +125,9 @@ function registerStyles(resolvePath: any, registered: any, options: any) {
       .reduce((acc: any[], citem: any) => (acc.some((item) => item.name.toLowerCase() === citem.name.toLowerCase()) ? acc : [...acc, citem]), [])
       .forEach((item: any) =>
         styles.push({
-          name: `${item.name}Style`,
-          as: `${item.name}Style`,
-          from: resolvePath({ name: `${item.name}Style`, as: `${item.name}Style`, from: `primevue/${item.name.toLowerCase()}/style`, type: 'style' })
+          name: `${item.as}Style`,
+          as: `${item.as}Style`,
+          from: resolvePath({ name: `${item.as}Style`, as: `${item.as}Style`, from: `${item.from}/style`, type: 'style' })
         })
       );
   }

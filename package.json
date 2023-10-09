@@ -1,5 +1,5 @@
 {
-  "name": "@nuxtjs/primevue",
+  "name": "nuxt-primevue",
   "version": "0.0.1",
   "description": "Nuxt module for PrimeVue",
   "keywords": [
@@ -43,10 +43,10 @@
     "format": "prettier --write \"**/*.{vue,ts,d.ts}\" --cache"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.7.3",
-    "primevue": "^3.0.0"
+    "@nuxt/kit": "^3.7.3"
   },
   "devDependencies": {
+    "primevue": "^3.35.0",
     "@types/node": "^18.17.17",
     "@nuxt/devtools": "latest",
     "@nuxt/eslint-config": "^0.2.0",

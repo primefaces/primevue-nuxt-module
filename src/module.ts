@@ -4,7 +4,7 @@ import type { ModuleOptions } from './types';
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: '@nuxtjs/primevue',
+    name: 'nuxt-primevue',
     configKey: 'primevue',
     compatibility: {
       nuxt: '^3.0.0'
@@ -16,18 +16,18 @@ export default defineNuxtModule<ModuleOptions>({
     options: {},
     components: {
       prefix: '',
-      import: [],
-      exclude: []
+      include: undefined,
+      exclude: undefined
     },
     directives: {
       prefix: '',
-      import: [],
-      exclude: []
+      include: undefined,
+      exclude: undefined
     },
     composables: {
       prefix: '',
-      import: [],
-      exclude: []
+      include: undefined,
+      exclude: undefined
     }
   },
   hooks: {},
