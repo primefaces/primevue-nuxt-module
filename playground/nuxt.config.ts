@@ -12,19 +12,19 @@ export default defineNuxtConfig({
       }
     },
     components: {
-      prefix: 'p',
-      include: '*',
-      exclude: []
+      prefix: '',
+      include: ['Panel', 'Button'],
+      exclude: undefined
     },
     directives: {
       prefix: '',
-      include: [],
+      include: undefined,
       exclude: '*'
     },
     composables: {
       prefix: '',
-      include: [],
-      exclude: []
+      include: undefined,
+      exclude: undefined
     }
   },
   devtools: { enabled: true },
