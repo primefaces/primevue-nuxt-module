@@ -122,12 +122,12 @@ function registerStyles(resolvePath: any, registered: any, options: any) {
 
     [registered.components, registered.directives]
       .flat()
-      .reduce((acc: any[], citem: any) => (acc.some((item) => item.name.toLowerCase() === citem.name.toLowerCase()) ? acc : [...acc, citem]), [])
+      .reduce((acc: any[], citem: any) => (acc.some((item) => item.as.toLowerCase() === citem.as.toLowerCase()) ? acc : [...acc, citem]), [])
       .forEach((item: any) =>
         styles.push({
           name: `${item.as}Style`,
           as: `${item.as}Style`,
-          from: resolvePath({ name: `${item.as}Style`, as: `${item.as}Style`, from: `${item.from}/style`, type: 'style' })
+          from: resolvePath({ name: `${item.as}Style`, as: `${item.as}Style`, from: `primevue/${item.as.toLowerCase()}/style`, type: 'style' })
         })
       );
   }
