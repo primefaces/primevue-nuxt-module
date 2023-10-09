@@ -37,7 +37,7 @@ function registerComponents(resolvePath: any, options: ComponentsType = {}) {
   const items: ComponentType[] = registerItems(components, options, { components });
 
   return items.map((item: ComponentType) => {
-    const name = `${options.prefix}${item.name}`;
+    const name = Utils.object.getName(item, options);
     const as = item.name;
     const from = resolvePath({ name, as, from: `primevue/${item.name.toLowerCase()}`, type: 'component' });
     const opt = {
@@ -62,7 +62,7 @@ function registerDirectives(resolvePath: any, options: DirectivesType = {}) {
   const items: DirectiveType[] = registerItems(directives, options, { directives });
 
   return items.map((item: DirectiveType) => {
-    const name = `${options.prefix}${item.name}`;
+    const name = Utils.object.getName(item, options);
     const opt = {
       ...item,
       name,
@@ -77,7 +77,7 @@ function registerComposables(resolvePath: any, options: ComposablesType = {}) {
   const items: ComposableType[] = registerItems(composables, options, { composables });
 
   return items.map((item: ComposableType) => {
-    const name = `${options.prefix}${item.name}`;
+    const name = Utils.object.getName(item, options);
     const opt = {
       ...item,
       name,

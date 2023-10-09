@@ -1,3 +1,4 @@
+import type { ConstructsType, ItemType } from './runtime/core/types';
 import type { ResolvePathOptions } from './types';
 
 export const Utils = {
@@ -16,6 +17,9 @@ export const Utils = {
     },
     getValue(obj: any, ...params: any) {
       return this.isFunction(obj) ? obj(...params) : obj;
+    },
+    getName(item: ItemType, options: ConstructsType) {
+      return this.isFunction(options?.name) ? options.name(item) : `${options.prefix}${item.name}`;
     },
     getPath(fn: any, options: ResolvePathOptions) {
       return this.isFunction(fn) ? fn(options) : options.from;
