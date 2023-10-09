@@ -27,7 +27,7 @@ const form = [
 
 const button = ['Button', 'SpeedDial', 'SplitButton'];
 
-const data = ['Column', 'ColumnGroup', 'DataTable', 'DataView', 'DataViewLayoutOptions', 'OrderList', 'OrganizationChart', 'Paginator', 'PickList', 'Tree', 'TreeTable', 'Timeline', 'VirtualScroller'];
+const data = ['Column', 'Row', 'ColumnGroup', 'DataTable', 'DataView', 'DataViewLayoutOptions', 'OrderList', 'OrganizationChart', 'Paginator', 'PickList', 'Tree', 'TreeTable', 'Timeline', 'VirtualScroller'];
 
 const panel = ['Accordion', 'AccordionTab', 'Card', 'DeferredContent', 'Divider', 'Fieldset', 'Panel', 'ScrollPanel', 'Splitter', 'SplitterPanel', 'TabView', 'TabPanel', 'Toolbar'];
 
