@@ -12,6 +12,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   defaults: {
     usePrimeVue: true,
+    resolvePath: undefined,
     options: {},
     components: {
       prefix: '',
@@ -34,42 +35,51 @@ export default defineNuxtModule<ModuleOptions>({
     const resolver = createResolver(import.meta.url);
     const registered = register(moduleOptions);
 
+    nuxt.options.runtimeConfig.public.primevue = {
+      ...moduleOptions,
+      ...registered
+    };
+
+    //nuxt.options.build.transpile.push('nuxt');
+    nuxt.options.build.transpile.push('primevue');
+
     const styleContent = `
-import { useRuntimeConfig } from '#imports';
+${registered.styles.map((style: any) => `import ${style.as} from '${style.from}';`).join('\n')}
 
-async function importStyleModules() {
-  const runtimeConfig = useRuntimeConfig();
-  const config = runtimeConfig?.public?.primevue ?? {};
-  const { options = {} } = config;
+const styles = [
+  ${registered.styles.map((item) => `${item.as} && ${item.as}.getStyleSheet ? ${item.as}.getStyleSheet() : ''`).join(',')}
+].join('');
 
-  try {
-    const modules = await Promise.all([
-      import('primevue/base/style'),
-      ${registered.components.length > 0 ? `!options.unstyled ? import('primevue/basecomponent/style') : ''` : ''},
-      ${[registered.components, registered.directives]
-        .flat()
-        .reduce((acc: any[], citem: any) => (acc.some((item) => item.name.toLowerCase() === citem.name.toLowerCase()) ? acc : [...acc, citem]), [])
-        .map((item: any) => `!options.unstyled ? import('primevue/${item.name.toLowerCase()}/style') : ''`)
-        .join(',')}
-    ]);
-
-    return modules.map((module) => module && module.getStyleSheet ? module.getStyleSheet() : '').join('');
-  } catch (error) {
-    console.error('PrimeVue Nuxt Module: ', error);
-  }
-}
-
-export { importStyleModules };
+export { styles };
 `;
     nuxt.options.alias['#primevue-style'] = addTemplate({
       filename: 'primevue-style.mjs',
       getContents: () => styleContent
     }).dst;
 
-    nuxt.options.runtimeConfig.public.primevue = {
-      ...registered,
-      options: moduleOptions.options
-    };
+    addPlugin(resolver.resolve('./runtime/plugin.client'));
+
+    addPluginTemplate({
+      filename: 'primevue-plugin.mjs',
+      getContents() {
+        return `
+import { defineNuxtPlugin, useRuntimeConfig } from '#imports';
+${registered.config.map((config: any) => `import ${config.as} from '${config.from}';`).join('\n')}
+${registered.services.map((service: any) => `import ${service.as} from '${service.from}';`).join('\n')}
+${registered.directives.map((directive: any) => `import ${directive.as} from '${directive.from}';`).join('\n')}
+
+export default defineNuxtPlugin(({ vueApp }) => {
+  const runtimeConfig = useRuntimeConfig();
+  const config = runtimeConfig?.public?.primevue ?? {};
+  const { usePrimeVue = true, options = {} } = config;
+
+  usePrimeVue && vueApp.use(PrimeVue, options);
+  ${registered.services.map((service: any) => `vueApp.use(${service.as});`).join('\n')}
+  ${registered.directives.map((directive: any) => `vueApp.directive('${directive.name}', ${directive.as});`).join('\n')}
+});
+        `;
+      }
+    });
 
     nuxt.hook('nitro:config', async (config) => {
       config.externals = config.externals || {};
@@ -79,31 +89,6 @@ export { importStyleModules };
       config.virtual['#primevue-style'] = styleContent;
       config.plugins = config.plugins || [];
       config.plugins.push(resolver.resolve('./runtime/plugin.server'));
-    });
-
-    //nuxt.options.build.transpile.push('nuxt');
-    nuxt.options.build.transpile.push('primevue');
-
-    addPlugin(resolver.resolve('./runtime/plugin.client'));
-
-    addPluginTemplate({
-      filename: 'primevue-config-plugin.server.mjs',
-      mode: 'server',
-      getContents() {
-        return `
-import { defineNuxtPlugin, useRuntimeConfig } from '#imports';
-
-import PrimeVue from 'primevue/config';
-
-export default defineNuxtPlugin(({ vueApp }) => {
-  const runtimeConfig = useRuntimeConfig();
-  const config = runtimeConfig?.public?.primevue ?? {};
-  const { usePrimeVue = true } = config;
-
-  usePrimeVue && vueApp.use(PrimeVue, ${JSON.stringify(moduleOptions.options)});
-})
-        `;
-      }
     });
   }
 });

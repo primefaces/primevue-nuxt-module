@@ -1,3 +1,5 @@
+import type { ResolvePathOptions } from './types';
+
 export const Utils = {
   object: {
     isEmpty(value: any) {
@@ -14,6 +16,9 @@ export const Utils = {
     },
     getValue(obj: any, ...params: any) {
       return this.isFunction(obj) ? obj(...params) : obj;
+    },
+    getPath(fn: any, options: ResolvePathOptions) {
+      return this.isFunction(fn) ? fn(options) : options.from;
     }
   }
 };

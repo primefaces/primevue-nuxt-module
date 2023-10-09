@@ -18,7 +18,7 @@ export default defineNuxtConfig({
     directives: {
       prefix: '',
       import: [],
-      exclude: []
+      exclude: '*'
     },
     composables: {
       prefix: '',

@@ -4,71 +4,156 @@ import { composables } from './runtime/core/composables';
 import { directives } from './runtime/core/directives';
 import { Utils } from './utils';
 
-import type { ComponentsType } from './runtime/core/components/types';
-import type { ComposablesType } from './runtime/core/composables/types';
-import type { DirectivesType } from './runtime/core/directives/types';
-import type { ModuleOptions } from './types';
+import type { ComponentType, ComponentsType } from './runtime/core/components/types';
+import type { ComposableType, ComposablesType } from './runtime/core/composables/types';
+import type { DirectiveType, DirectivesType } from './runtime/core/directives/types';
+import type { ConstructsType, ItemType } from './runtime/core/types';
+import type { ModuleOptions, ResolvePathOptions } from './types';
 
-function registerItems(items: any[] = [], options: ComponentsType = {}, params: any) {
+function registerItems(items: any[] = [], options: ConstructsType = {}, params: any) {
   const imported = Utils.object.getValue(options.import, params);
   const excluded = Utils.object.getValue(options.exclude, params);
 
   return items.filter((item) => {
     const name = item?.name;
-    const matchedIm = imported?.length > 0 ? imported.some((im: string) => name?.toLowerCase() === im.toLowerCase()) : true;
-    const matchedEx = excluded?.length > 0 ? excluded.some((ex: string) => name?.toLowerCase() === ex.toLowerCase()) : false;
+    const matchedIm = imported !== '*' ? (imported?.length > 0 ? imported.some((im: string) => name?.toLowerCase() === im.toLowerCase()) : true) : true;
+    const matchedEx = excluded !== '*' ? (excluded?.length > 0 ? excluded.some((ex: string) => name?.toLowerCase() === ex.toLowerCase()) : false) : true;
 
     return matchedIm && !matchedEx;
   });
 }
 
-function registerComponents(options: ComponentsType = {}) {
-  const _components = registerItems(components, options, { components });
+function registerConfig(resolvePath: any) {
+  return [
+    {
+      name: 'PrimeVue',
+      as: 'PrimeVue',
+      from: resolvePath({ name: 'PrimeVue', as: 'PrimeVue', from: `primevue/config`, type: 'config' })
+    }
+  ];
+}
 
-  _components.forEach((component) =>
-    addComponent({
+function registerComponents(resolvePath: any, options: ComponentsType = {}) {
+  const items: ComponentType[] = registerItems(components, options, { components });
+
+  return items.map((item: ComponentType) => {
+    const name = `${options.prefix}${item.name}`;
+    const as = item.name;
+    const from = resolvePath({ name, as, from: `primevue/${item.name.toLowerCase()}`, type: 'component' });
+    const opt = {
       export: 'default',
-      name: `${options.prefix}${component.name}`,
-      filePath: `primevue/${component.name.toLowerCase()}`,
+      name,
+      filePath: from,
       global: true
-    })
-  );
+    };
 
-  return _components;
+    addComponent(opt);
+
+    return {
+      ...item,
+      ...opt,
+      as,
+      from
+    };
+  });
 }
 
-function registerDirectives(options: DirectivesType = {}) {
-  const _directives = registerItems(directives, options, { directives });
+function registerDirectives(resolvePath: any, options: DirectivesType = {}) {
+  const items: DirectiveType[] = registerItems(directives, options, { directives });
 
-  _directives.forEach((directive) => ({
-    ...directive,
-    name: `${options.prefix}${directive.name}`
+  return items.map((item: DirectiveType) => {
+    const name = `${options.prefix}${item.name}`;
+    const opt = {
+      ...item,
+      name,
+      from: resolvePath({ name, as: item.as, from: item.from, type: 'directive' })
+    };
+
+    return opt;
+  });
+}
+
+function registerComposables(resolvePath: any, options: ComposablesType = {}) {
+  const items: ComposableType[] = registerItems(composables, options, { composables });
+
+  return items.map((item: ComposableType) => {
+    const name = `${options.prefix}${item.name}`;
+    const opt = {
+      ...item,
+      name,
+      from: resolvePath({ name, as: item.as, from: item.from, type: 'composable' })
+    };
+
+    addImports(opt);
+
+    return opt;
+  });
+}
+
+function registerServices(resolvePath: any, components: ComponentType[] = []) {
+  const services: any = new Set<string>();
+
+  components.forEach((component) => component?.use && services.add(component.use.as));
+
+  return [...services].map((service) => ({
+    name: service,
+    as: service,
+    from: resolvePath({ name: service, as: service, from: `primevue/${service.toLowerCase()}`, type: 'service' })
   }));
-
-  return _directives;
 }
 
-function registerComposables(options: ComposablesType = {}) {
-  const _composables = registerItems(composables, options, { composables });
+function registerStyles(resolvePath: any, registered: any, options: any) {
+  const styles: ItemType[] = [
+    {
+      name: 'BaseStyle',
+      as: 'BaseStyle',
+      from: resolvePath({ name: 'BaseStyle', as: 'BaseStyle', from: 'primevue/base/style', type: 'style' })
+    }
+  ];
 
-  _composables.forEach((composable) =>
-    addImports({
-      ...composable,
-      name: `${options.prefix}${composable.name}`
-    })
-  );
+  if (!options?.unstyled) {
+    if (Utils.object.isNotEmpty(registered?.components)) {
+      styles.push({
+        name: 'BaseComponentStyle',
+        as: 'BaseComponentStyle',
+        from: resolvePath({ name: 'BaseComponentStyle', as: 'BaseComponentStyle', from: 'primevue/basecomponent/style', type: 'style' })
+      });
+    }
 
-  return _composables;
+    [registered.components, registered.directives]
+      .flat()
+      .reduce((acc: any[], citem: any) => (acc.some((item) => item.name.toLowerCase() === citem.name.toLowerCase()) ? acc : [...acc, citem]), [])
+      .forEach((item: any) =>
+        styles.push({
+          name: `${item.name}Style`,
+          as: `${item.name}Style`,
+          from: resolvePath({ name: `${item.name}Style`, as: `${item.name}Style`, from: `primevue/${item.name.toLowerCase()}/style`, type: 'style' })
+        })
+      );
+  }
+
+  return styles;
 }
 
 export function register(options: ModuleOptions) {
-  const components = registerComponents(options.components);
-  const directives = registerDirectives(options.directives);
-  const composables = registerComposables(options.composables);
+  const resolvePath = (resolveOptions: ResolvePathOptions) => Utils.object.getPath(options.resolvePath, resolveOptions);
 
-  return {
+  const config = registerConfig(resolvePath);
+  const components = registerComponents(resolvePath, options.components);
+  const directives = registerDirectives(resolvePath, options.directives);
+  const composables = registerComposables(resolvePath, options.composables);
+  const registered = {
     components,
     directives,
     composables
+  };
+  const services = registerServices(resolvePath, registered.components);
+  const styles = registerStyles(resolvePath, registered, options.options);
+
+  return {
+    config,
+    ...registered,
+    services,
+    styles
   };
 }
