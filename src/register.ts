@@ -37,9 +37,9 @@ function registerComponents(resolvePath: any, options: ComponentsType = {}) {
   const items: ComponentType[] = registerItems(components, options, { components });
 
   return items.map((item: ComponentType) => {
-    const name = Utils.object.getName(item, options);
-    const as = item.name;
-    const from = resolvePath({ name, as, from: `primevue/${item.name.toLowerCase()}`, type: 'component' });
+    const _item = { name: item.name, as: item.name, from: `primevue/${item.name.toLowerCase()}` };
+    const name = Utils.object.getName(_item, options);
+    const from = resolvePath({ name, as: _item.as, from: _item.from, type: 'component' });
     const opt = {
       export: 'default',
       name,
@@ -50,10 +50,8 @@ function registerComponents(resolvePath: any, options: ComponentsType = {}) {
     addComponent(opt);
 
     return {
-      ...item,
-      ...opt,
-      as,
-      from
+      ..._item,
+      ...opt
     };
   });
 }
