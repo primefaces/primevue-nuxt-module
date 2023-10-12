@@ -1,31 +1,7 @@
-<!--
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Generate type stubs
-npm run dev:prepare
-
-# Develop with the playground
-npm run dev
-
-# Build the playground
-npm run dev:build
-
-# Run ESLint
-npm run lint
-
-# Run Vitest
-npm run test
-npm run test:watch
-
-# Release new version
-npm run release
-```
--->
 # PrimeVue Nuxt Module
+
+![nuxt-primevue](https://github.com/primefaces/primevue-nuxt-module/assets/11868120/c35e1180-573f-4650-bbe9-0c79bff71f05)
+
 
 ## Quick Setup
 
