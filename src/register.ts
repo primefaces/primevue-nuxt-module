@@ -37,7 +37,7 @@ function registerComponents(resolvePath: any, options: ComponentsType = {}) {
   const items: ComponentType[] = registerItems(components, options, { components });
 
   return items.map((item: ComponentType) => {
-    const _item = { name: item.name, as: item.name, from: `primevue/${item.name.toLowerCase()}` };
+    const _item = { ...item, name: item.name, as: item.name, from: `primevue/${item.name.toLowerCase()}` };
     const name = Utils.object.getName(_item, options);
     const from = resolvePath({ name, as: _item.as, from: _item.from, type: 'component' });
     const opt = {
@@ -88,10 +88,10 @@ function registerComposables(resolvePath: any, options: ComposablesType = {}) {
   });
 }
 
-function registerServices(resolvePath: any, components: ComponentType[] = []) {
+function registerServices(resolvePath: any, registered: any) {
   const services: any = new Set<string>();
 
-  components.forEach((component) => component?.use && services.add(component.use.as));
+  registered?.components?.forEach((component: ComponentType) => component?.use && services.add(component.use.as));
 
   return [...services].map((service) => ({
     name: service,
@@ -145,7 +145,7 @@ export function register(options: ModuleOptions) {
     directives,
     composables
   };
-  const services = registerServices(resolvePath, registered.components);
+  const services = registerServices(resolvePath, registered);
   const styles = registerStyles(resolvePath, registered, options.options);
 
   return {
