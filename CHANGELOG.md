@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.4
+
+[compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.0.3...v0.0.4)
+
+### 🏡 Chore
+
+- **release:** V0.0.3 ([70a4e8d](https://github.com/primefaces/primevue-nuxt-module/commit/70a4e8d))
+
+### ❤️ Contributors
+
+- Mertsincan ([@mertsincan](http://github.com/mertsincan))
+
 ## v0.0.3
 
 [compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.0.1...v0.0.3)

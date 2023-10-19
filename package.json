@@ -1,6 +1,6 @@
 {
   "name": "nuxt-primevue",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Nuxt module for PrimeVue",
   "keywords": [
     "vue",
@@ -46,7 +46,7 @@
     "@nuxt/kit": "^3.7.3"
   },
   "peerDependencies": {
-    "primevue": "^3.36.0"
+    "primevue": "^3.37.0"
   },
   "devDependencies": {
     "@types/node": "^18.17.17",
