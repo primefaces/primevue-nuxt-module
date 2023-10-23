@@ -18,3 +18,12 @@ export interface ResolvePathOptions {
   from: string;
   type?: 'config' | 'component' | 'directive' | 'composable' | 'service' | 'style' | undefined;
 }
+
+declare module '@nuxt/schema' {
+  interface NuxtConfig {
+    primevue?: ModuleOptions;
+  }
+  interface NuxtOptions {
+    primevue?: ModuleOptions;
+  }
+}
