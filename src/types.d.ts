@@ -6,10 +6,17 @@ import type { DirectivesType } from './runtime/core/directives/types';
 export interface ModuleOptions {
   usePrimeVue?: boolean;
   resolvePath?: any;
+  layerOrder?: string;
+  importPT?: ImportPTOptions;
   options?: any;
   components?: ComponentsType;
   directives?: DirectivesType;
   composables?: ComposablesType;
+}
+
+export interface ImportPTOptions {
+  as: string;
+  from: string;
 }
 
 export interface ResolvePathOptions {

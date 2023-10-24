@@ -133,25 +133,31 @@ function registerStyles(resolvePath: any, registered: any, options: any) {
   return styles;
 }
 
-export function register(options: ModuleOptions) {
-  const resolvePath = (resolveOptions: ResolvePathOptions) => Utils.object.getPath(options.resolvePath, resolveOptions);
+function registerInjectStylesAsString(options: any) {
+  return [Utils.object.createStyleAsString(options.layerOrder ? `@layer ${options.layerOrder}` : undefined, { name: 'layer-order' })];
+}
+
+export function register(moduleOptions: ModuleOptions) {
+  const resolvePath = (resolveOptions: ResolvePathOptions) => Utils.object.getPath(moduleOptions.resolvePath, resolveOptions);
 
   const config = registerConfig(resolvePath);
-  const components = registerComponents(resolvePath, options.components);
-  const directives = registerDirectives(resolvePath, options.directives);
-  const composables = registerComposables(resolvePath, options.composables);
+  const components = registerComponents(resolvePath, moduleOptions.components);
+  const directives = registerDirectives(resolvePath, moduleOptions.directives);
+  const composables = registerComposables(resolvePath, moduleOptions.composables);
   const registered = {
     components,
     directives,
     composables
   };
   const services = registerServices(resolvePath, registered);
-  const styles = registerStyles(resolvePath, registered, options.options);
+  const styles = registerStyles(resolvePath, registered, moduleOptions.options);
+  const injectStylesAsString = registerInjectStylesAsString(moduleOptions);
 
   return {
     config,
     ...registered,
     services,
-    styles
+    styles,
+    injectStylesAsString
   };
 }

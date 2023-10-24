@@ -23,6 +23,14 @@ export const Utils = {
     },
     getPath(fn: any, options: ResolvePathOptions) {
       return this.isFunction(fn) ? fn(options) : options.from;
+    },
+    createStyleAsString(css: string, options = { name: '' }) {
+      if (css) {
+        const { name, ...rest } = options;
+        return `'<style type="text/css" data-primevue-style-id="${name}"${Object.entries(rest).reduce((s, [k, v]) => s + `${k}="${v}"`, ' ')}>${css}</style>'`;
+      }
+
+      return '';
     }
   }
 };

@@ -13,6 +13,8 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     usePrimeVue: true,
     resolvePath: undefined,
+    layerOrder: 'tailwind-base, primevue, tailwind-utilities',
+    importPT: undefined,
     options: {},
     components: {
       prefix: '',
@@ -37,6 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
   setup(moduleOptions, nuxt) {
     const resolver = createResolver(import.meta.url);
     const registered = register(moduleOptions);
+    const { importPT } = moduleOptions;
 
     nuxt.options.runtimeConfig.public.primevue = {
       ...moduleOptions,
@@ -46,10 +49,11 @@ export default defineNuxtModule<ModuleOptions>({
     //nuxt.options.build.transpile.push('nuxt');
     nuxt.options.build.transpile.push('primevue');
 
-    const styleContent = `
+    const styleContent = () => `
 ${registered.styles.map((style: any) => `import ${style.as} from '${style.from}';`).join('\n')}
 
 const styles = [
+  ${registered.injectStylesAsString.join('')},
   ${registered.styles.map((item) => `${item.as} && ${item.as}.getStyleSheet ? ${item.as}.getStyleSheet() : ''`).join(',')}
 ].join('');
 
@@ -57,7 +61,7 @@ export { styles };
 `;
     nuxt.options.alias['#primevue-style'] = addTemplate({
       filename: 'primevue-style.mjs',
-      getContents: () => styleContent
+      getContents: styleContent
     }).dst;
 
     addPlugin(resolver.resolve('./runtime/plugin.client'));
@@ -70,13 +74,15 @@ import { defineNuxtPlugin, useRuntimeConfig } from '#imports';
 ${registered.config.map((config: any) => `import ${config.as} from '${config.from}';`).join('\n')}
 ${registered.services.map((service: any) => `import ${service.as} from '${service.from}';`).join('\n')}
 ${registered.directives.map((directive: any) => `import ${directive.as} from '${directive.from}';`).join('\n')}
+${importPT ? `import ${importPT.as} from '${importPT.from}';\n` : ''}
 
 export default defineNuxtPlugin(({ vueApp }) => {
   const runtimeConfig = useRuntimeConfig();
   const config = runtimeConfig?.public?.primevue ?? {};
   const { usePrimeVue = true, options = {} } = config;
+  const pt = ${importPT ? `{ pt: ${importPT.as} }` : `{}`};
 
-  usePrimeVue && vueApp.use(PrimeVue, options);
+  usePrimeVue && vueApp.use(PrimeVue, { ...options, ...pt });
   ${registered.services.map((service: any) => `vueApp.use(${service.as});`).join('\n')}
   ${registered.directives.map((directive: any) => `vueApp.directive('${directive.name}', ${directive.as});`).join('\n')}
 });
