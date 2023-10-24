@@ -16,7 +16,7 @@ yarn add --dev nuxt-primevue
 npm install --save-dev nuxt-primevue
 ```
 
-2. Add `nuxt-primevue` to the `modules` section of `nuxt.config.ts`
+2. Add `nuxt-primevue` to the `modules` section of `nuxt.config.{ts,js}`
 
 ```js
 {
