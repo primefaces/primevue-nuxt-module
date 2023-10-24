@@ -14,6 +14,8 @@ export interface ModuleOptions {
   composables?: ComposablesType;
 }
 
+//export interface PrimeVueOptions extends PrimeVueConfiguration {}
+
 export interface ImportPTOptions {
   as: string;
   from: string;
