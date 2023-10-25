@@ -6,7 +6,7 @@ import type { DirectivesType } from './runtime/core/directives/types';
 export interface ModuleOptions {
   usePrimeVue?: boolean;
   resolvePath?: any;
-  layerOrder?: string;
+  cssLayerOrder?: string;
   importPT?: ImportPTOptions;
   options?: any;
   components?: ComponentsType;

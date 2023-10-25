@@ -134,7 +134,7 @@ function registerStyles(resolvePath: any, registered: any, options: any) {
 }
 
 function registerInjectStylesAsString(options: any) {
-  return [Utils.object.createStyleAsString(options.layerOrder ? `@layer ${options.layerOrder}` : undefined, { name: 'layer-order' })];
+  return [Utils.object.createStyleAsString(options.cssLayerOrder ? `@layer ${options.cssLayerOrder}` : undefined, { name: 'layer-order' })];
 }
 
 export function register(moduleOptions: ModuleOptions) {
