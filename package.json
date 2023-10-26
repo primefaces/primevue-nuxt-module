@@ -48,7 +48,7 @@
     "@nuxt/kit": "^3.7.3"
   },
   "peerDependencies": {
-    "primevue": "^3.37.0"
+    "primevue": "^3.38.1"
   },
   "devDependencies": {
     "@types/node": "^18.17.17",
