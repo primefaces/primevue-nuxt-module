@@ -1,9 +1,21 @@
 # Changelog
 
 
-## v0.0.4
+## v0.1.0
 
-[compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.0.3...v0.0.4)
+[compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.0.3...v0.1.0)
+
+### 🏡 Chore
+
+- **release:** V0.1.0 ([3459fc2](https://github.com/primefaces/primevue-nuxt-module/commit/3459fc2))
+
+### ❤️ Contributors
+
+- Tuğçe Küçükoğlu <tugcekucukoglu.860@gmail.com>
+
+## v0.1.0
+
+[compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.0.3...v0.1.0)
 
 ### 🏡 Chore
 
