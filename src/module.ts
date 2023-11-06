@@ -20,7 +20,7 @@ export default defineNuxtModule<ModuleOptions>({
       prefix: '',
       name: undefined,
       include: undefined,
-      exclude: undefined
+      exclude: ['Editor', 'Chart']
     },
     directives: {
       prefix: '',
