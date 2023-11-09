@@ -2,10 +2,10 @@
 
 # PrimeVue Nuxt Module
 
-[![npm version](https://badge.fury.io/js/nuxt-primevue.svg)](https://badge.fury.io/js/nuxt-primevue)
-![NPM Downloads](https://img.shields.io/npm/dm/nuxt-primevue)
-[![Discord Chat](https://img.shields.io/discord/557940238991753223.svg?color=7289da&label=chat&logo=discord)](https://discord.gg/gzKFYnpmCY)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![Discord Chat][discord-src]](discord-href)
+[![License][license-src]][license-href]
 
 - [✨ Release Notes](https://github.com/primefaces/primevue-nuxt-module/blob/main/CHANGELOG.md#changelog)
 - [📖 Documentation](https://primevue.org/nuxt/)
@@ -34,3 +34,16 @@ npm install --save-dev nuxt-primevue
 ```
 
 That's it! You can now use `nuxt-primevue` in your Nuxt app ✨
+
+<!-- Badges -->
+[npm-version-src]: https://img.shields.io/npm/v/nuxt-primevue/latest.svg?color
+[npm-version-href]: https://npmjs.com/package/nuxt-primevue
+
+[npm-downloads-src]: https://img.shields.io/npm/dm/nuxt-primevue
+[npm-downloads-href]: https://npmjs.com/package/nuxt-primevue
+
+[discord-src]: https://img.shields.io/discord/557940238991753223.svg?colorB=7289da&label=chat&logo=discord
+[discord-href]: https://discord.gg/gzKFYnpmCY
+
+[license-src]: https://img.shields.io/npm/l/nuxt-primevue.svg?style=flat&colorB=yellow
+[license-href]: https://npmjs.com/package/nuxt-primevue
