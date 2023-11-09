@@ -135,6 +135,10 @@ function registerStyles(resolvePath: any, registered: any, options: any) {
 }
 
 function registerInjectStylesAsString(options: any) {
+  return [];
+}
+
+function registerInjectStylesAsStringToTop(options: any) {
   return [Utils.object.createStyleAsString(options.cssLayerOrder ? `@layer ${options.cssLayerOrder}` : undefined, { name: 'layer-order' })];
 }
 
@@ -153,12 +157,14 @@ export function register(moduleOptions: ModuleOptions) {
   const services = registerServices(resolvePath, registered);
   const styles = registerStyles(resolvePath, registered, moduleOptions.options);
   const injectStylesAsString = registerInjectStylesAsString(moduleOptions);
+  const injectStylesAsStringToTop = registerInjectStylesAsStringToTop(moduleOptions);
 
   return {
     config,
     ...registered,
     services,
     styles,
-    injectStylesAsString
+    injectStylesAsString,
+    injectStylesAsStringToTop
   };
 }

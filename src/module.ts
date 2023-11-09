@@ -52,12 +52,14 @@ export default defineNuxtModule<ModuleOptions>({
     const styleContent = () => `
 ${registered.styles.map((style: any) => `import ${style.as} from '${style.from}';`).join('\n')}
 
+const stylesToTop = [${registered.injectStylesAsStringToTop.join('')}].join('');
+
 const styles = [
   ${registered.injectStylesAsString.join('')},
   ${registered.styles.map((item) => `${item.as} && ${item.as}.getStyleSheet ? ${item.as}.getStyleSheet() : ''`).join(',')}
 ].join('');
 
-export { styles };
+export { styles, stylesToTop };
 `;
     nuxt.options.alias['#primevue-style'] = addTemplate({
       filename: 'primevue-style.mjs',
