@@ -13,11 +13,12 @@ import type { ModuleOptions, ResolvePathOptions } from './types';
 function registerItems(items: any[] = [], options: ConstructsType = {}, params: any) {
   const included = Utils.object.getValue(options.include, params);
   const excluded = Utils.object.getValue(options.exclude, params);
+  const isMatched = (name: string, tName: any) => name?.toLowerCase() === (Utils.object.isString(tName) ? tName?.toLowerCase() : tName?.name?.toLowerCase());
 
   return items.filter((item) => {
     const name = item?.name;
-    const matchedIn = included === '*' || included === undefined ? true : Utils.object.isNotEmpty(included) ? included.some((inc) => name?.toLowerCase() === Utils.object.isString(inc) ? inc?.toLowerCase() : inc?.name?.toLowerCase()) : false;
-    const matchedEx = included === '*' ? false : excluded === '*' ? true : Utils.object.isNotEmpty(excluded) ? excluded.some((exc: string) => name?.toLowerCase() === Utils.object.isString(exc) ? exc?.toLowerCase() : exc?.name?.toLowerCase()) : false;
+    const matchedIn = included === '*' || included === undefined ? true : Utils.object.isNotEmpty(included) ? included.some((inc: any) => isMatched(name, inc)) : false;
+    const matchedEx = included === '*' ? false : excluded === '*' ? true : Utils.object.isNotEmpty(excluded) ? excluded.some((exc: any) => isMatched(name, exc)) : false;
 
     return matchedIn && !matchedEx;
   });
