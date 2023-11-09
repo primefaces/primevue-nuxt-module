@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.2.0
+
+[compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.1.0...v0.2.0)
+
+### 🩹 Fixes
+
+- Import nuxt composables from #imports ([ba3a88e](https://github.com/primefaces/primevue-nuxt-module/commit/ba3a88e))
+
+### 🏡 Chore
+
+- Fix bug when primevue component is used as service ([9ff909e](https://github.com/primefaces/primevue-nuxt-module/commit/9ff909e))
+- Fix component type to accept object ([a1d5fc1](https://github.com/primefaces/primevue-nuxt-module/commit/a1d5fc1))
+
+### ❤️ Contributors
+
+- Anjorin Damilare ([@dammy001](http://github.com/dammy001))
+- Daniel Roe ([@danielroe](http://github.com/danielroe))
+
 ## v0.1.0
 
 [compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.0.3...v0.1.0)
