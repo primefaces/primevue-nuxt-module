@@ -43,10 +43,8 @@
     "format": "prettier --write \"**/*.{vue,ts,d.ts}\" --cache"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.7.3"
-  },
-  "peerDependencies": {
-    "primevue": "^3.38.1"
+    "@nuxt/kit": "^3.7.3",
+    "primevue": "^3.40.0"
   },
   "devDependencies": {
     "@types/node": "^18.17.17",
