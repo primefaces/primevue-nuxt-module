@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     },
     components: {
       prefix: '',
-      include: ['Panel', 'Button'],
+      include: '*',
       exclude: undefined
     },
     directives: {
