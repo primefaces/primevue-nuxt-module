@@ -20,7 +20,7 @@ export default defineNuxtModule<ModuleOptions>({
       prefix: '',
       name: undefined,
       include: undefined,
-      exclude: ['Editor', 'Chart']
+      exclude: undefined
     },
     directives: {
       prefix: '',
@@ -37,6 +37,8 @@ export default defineNuxtModule<ModuleOptions>({
   },
   hooks: {},
   setup(moduleOptions, nuxt) {
+    moduleOptions.components.exclude = moduleOptions.components.exclude || ['Editor', 'Chart'];
+
     const resolver = createResolver(import.meta.url);
     const registered = register(moduleOptions);
     const { importPT } = moduleOptions;
