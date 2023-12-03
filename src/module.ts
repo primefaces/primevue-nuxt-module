@@ -29,7 +29,7 @@ export default defineNuxtModule<ModuleOptions>({
       exclude: undefined
     },
     composables: {
-      prefix: '',
+      //prefix: '',
       name: undefined,
       include: undefined,
       exclude: undefined

@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       exclude: '*'
     },
     composables: {
-      prefix: '',
+      //prefix: '',
       include: undefined,
       exclude: undefined
     }

@@ -76,7 +76,7 @@ function registerComposables(resolvePath: any, options: ComposablesType = {}) {
   const items: ComposableType[] = registerItems(composables, options, { composables });
 
   return items.map((item: ComposableType) => {
-    const name = Utils.object.getName(item, options);
+    const name = item.name; //Utils.object.getName(item, options);
     const opt = {
       ...item,
       name,
