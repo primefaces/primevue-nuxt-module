@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.2.2
+
+[compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.2.0...v0.2.2)
+
+### 🩹 Fixes
+
+- Only include all components if no specific excludes ([a2d29f0](https://github.com/primefaces/primevue-nuxt-module/commit/a2d29f0))
+
+### 🏡 Chore
+
+- **release:** V0.2.0 ([af39a89](https://github.com/primefaces/primevue-nuxt-module/commit/af39a89))
+- **release:** V0.2.1 ([a0ff74d](https://github.com/primefaces/primevue-nuxt-module/commit/a0ff74d))
+
+### ❤️ Contributors
+
+- Mertsincan ([@mertsincan](http://github.com/mertsincan))
+- Rstainsby <rstainsbydevelopment@gmail.com>
+
 ## v0.2.1
 
 [compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.2.0...v0.2.1)
