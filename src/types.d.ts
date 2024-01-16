@@ -1,4 +1,4 @@
-//import type { PrimeVueConfiguration } from 'primevue/config';
+import type { PrimeVueConfiguration } from 'primevue/config';
 import type { ComponentsType } from './runtime/core/components/types';
 import type { ComposablesType } from './runtime/core/composables/types';
 import type { DirectivesType } from './runtime/core/directives/types';
@@ -8,7 +8,7 @@ export interface ModuleOptions {
   resolvePath?: any;
   cssLayerOrder?: string;
   importPT?: ImportPTOptions;
-  options?: any;
+  options?: PrimeVueConfiguration;
   components?: ComponentsType;
   directives?: DirectivesType;
   composables?: ComposablesType;
