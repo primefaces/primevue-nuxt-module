@@ -8,16 +8,16 @@ export interface ModuleOptions {
   resolvePath?: any;
   cssLayerOrder?: string;
   importPT?: ImportPTOptions;
-  options?: PrimeVueConfiguration;
+  options?: PrimeVueOptions;
   components?: ComponentsType;
   directives?: DirectivesType;
   composables?: ComposablesType;
 }
 
-//export interface PrimeVueOptions extends PrimeVueConfiguration {}
+export interface PrimeVueOptions extends PrimeVueConfiguration {}
 
 export interface ImportPTOptions {
-  as: string;
+  as?: string;
   from: string;
 }
 
