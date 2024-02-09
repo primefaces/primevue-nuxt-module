@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v0.3.0
+
+[compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.2.2...v0.3.0)
+
+### 🚀 Enhancements
+
+- New components added ([d96a6d8](https://github.com/primefaces/primevue-nuxt-module/commit/d96a6d8))
+- The `as` can be optional in `importPT` option ([cb2d6c5](https://github.com/primefaces/primevue-nuxt-module/commit/cb2d6c5))
+- Note for Nuxt devs for PrimeVue < v3.40.0 ([1e15632](https://github.com/primefaces/primevue-nuxt-module/commit/1e15632))
+
+### 🩹 Fixes
+
+- The nonce option is not working on styles ([3f0b118](https://github.com/primefaces/primevue-nuxt-module/commit/3f0b118))
+- Add types for primevue.options ([876fdd3](https://github.com/primefaces/primevue-nuxt-module/commit/876fdd3))
+
 ## v0.2.2
 
 [compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.2.0...v0.2.2)

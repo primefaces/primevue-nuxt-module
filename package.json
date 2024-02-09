@@ -1,6 +1,6 @@
 {
   "name": "nuxt-primevue",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Nuxt module for PrimeVue",
   "keywords": [
     "vue",
@@ -36,7 +36,7 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run format && npm run lint && npm run test && npm run prepack && changelogen --minor --release && npm publish && git push --follow-tags",
+    "release": "npm run format && npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
