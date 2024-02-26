@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v0.3.1
+
+[compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.3.0...v0.3.1)
+
 ## v0.3.0
 
 [compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.2.2...v0.3.0)
