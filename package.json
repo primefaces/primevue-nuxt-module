@@ -1,6 +1,6 @@
 {
   "name": "nuxt-primevue",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Nuxt module for PrimeVue",
   "keywords": [
     "vue",
@@ -45,9 +45,10 @@
   "dependencies": {
     "@nuxt/kit": "^3.7.3",
     "pathe": "^1.1.2",
-    "primevue": "~3.48.1"
+    "primevue": "~3.49.1"
   },
   "devDependencies": {
+    "@types/node": "^18.17.17",
     "@nuxt/devtools": "^0.8.5",
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxt/module-builder": "^0.5.1",
