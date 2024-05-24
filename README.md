@@ -15,12 +15,7 @@
 1. Add `nuxt-primevue` dependency to your project
 
 ```bash
-# Using pnpm
-pnpm add -D nuxt-primevue
-# Using yarn
-yarn add --dev nuxt-primevue
-# Using npm
-npm install --save-dev nuxt-primevue
+npx nuxi@latest module add primevue
 ```
 
 2. Add `nuxt-primevue` to the `modules` section of `nuxt.config.{ts,js}`
