@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v3.0.0
+
+[compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.3.1...v3.0.0)
+
+### 🩹 Fixes
+
+- Normalize file paths for Windows ([795b88d](https://github.com/primefaces/primevue-nuxt-module/commit/795b88d))
+- Resolve type conflict by updating `primevue` ([4da0041](https://github.com/primefaces/primevue-nuxt-module/commit/4da0041))
+
+### 📖 Documentation
+
+- Use new `nuxi module add` command in installation ([0fec170](https://github.com/primefaces/primevue-nuxt-module/commit/0fec170))
+
+### 🏡 Chore
+
+- **release:** V0.3.0 ([9e80921](https://github.com/primefaces/primevue-nuxt-module/commit/9e80921))
+
+### ❤️ Contributors
+
+- Bobbie Goede <bobbiegoede@gmail.com>
+- Daniel Roe ([@danielroe](http://github.com/danielroe))
+- Mertsincan ([@mertsincan](http://github.com/mertsincan))
+- Lehoczky Zoltán ([@Lehoczky](http://github.com/Lehoczky))
+
 ## v0.3.1
 
 [compare changes](https://github.com/primefaces/primevue-nuxt-module/compare/v0.3.0...v0.3.1)
