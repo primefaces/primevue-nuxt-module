@@ -1,4 +1,5 @@
 import { addPlugin, addPluginTemplate, addTemplate, createResolver, defineNuxtModule } from '@nuxt/kit';
+import { normalize } from 'pathe';
 import { register } from './register';
 import type { ModuleOptions } from './types';
 
@@ -80,7 +81,7 @@ import { defineNuxtPlugin, useRuntimeConfig } from '#imports';
 ${registered.config.map((config: any) => `import ${config.as} from '${config.from}';`).join('\n')}
 ${registered.services.map((service: any) => `import ${service.as} from '${service.from}';`).join('\n')}
 ${registered.directives.map((directive: any) => `import ${directive.as} from '${directive.from}';`).join('\n')}
-${importPT ? `import ${importPT.as} from '${importPT.from}';\n` : ''}
+${importPT ? `import ${importPT.as} from '${normalize(importPT.from)}';\n` : ''}
 
 export default defineNuxtPlugin(({ vueApp }) => {
   const runtimeConfig = useRuntimeConfig();
