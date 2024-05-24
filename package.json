@@ -1,6 +1,6 @@
 {
   "name": "nuxt-primevue",
-  "version": "0.3.1",
+  "version": "3.0.0",
   "description": "Nuxt module for PrimeVue",
   "keywords": [
     "vue",
@@ -54,13 +54,12 @@
     "@nuxt/module-builder": "^0.5.1",
     "@nuxt/schema": "^3.7.3",
     "@nuxt/test-utils": "^3.7.3",
-    "@types/node": "^18.17.17",
     "changelogen": "^0.5.5",
     "eslint": "^8.49.0",
     "nitropack": "^2.6.3",
     "nuxt": "^3.7.3",
     "prettier": "2.7.1",
-    "vitest": "^0.33.0"
+    "vitest": "^1.6.0"
   },
   "publishConfig": {
     "access": "public"
