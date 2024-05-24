@@ -1,6 +1,6 @@
 {
   "name": "nuxt-primevue",
-  "version": "3.0.0",
+  "version": "4.0.0-rc.1",
   "description": "Nuxt module for PrimeVue",
   "keywords": [
     "vue",
@@ -10,7 +10,8 @@
     "nuxt3",
     "primevue",
     "primevue nuxt module",
-    "primevue nuxt3"
+    "primevue nuxt3",
+    "primevue 4"
   ],
   "repository": {
     "type": "git",
@@ -45,7 +46,7 @@
   "dependencies": {
     "@nuxt/kit": "^3.7.3",
     "pathe": "^1.1.2",
-    "primevue": "^3.51.0"
+    "primevue": "^4.0.0.rc1"
   },
   "devDependencies": {
     "@types/node": "^18.17.17",

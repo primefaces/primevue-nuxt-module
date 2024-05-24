@@ -7,7 +7,8 @@ export interface ModuleOptions {
   usePrimeVue?: boolean;
   resolvePath?: any;
   cssLayerOrder?: string;
-  importPT?: ImportPTOptions;
+  importPT?: ImportOptions;
+  importTheme?: ImportOptions;
   options?: PrimeVueOptions;
   components?: ComponentsType;
   directives?: DirectivesType;
@@ -16,7 +17,7 @@ export interface ModuleOptions {
 
 export interface PrimeVueOptions extends PrimeVueConfiguration {}
 
-export interface ImportPTOptions {
+export interface ImportOptions {
   as?: string;
   from: string;
 }
