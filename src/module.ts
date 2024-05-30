@@ -123,5 +123,12 @@ export default defineNuxtPlugin(({ vueApp }) => {
       config.plugins = config.plugins || [];
       config.plugins.push(resolver.resolve('./runtime/plugin.server'));
     });
+
+    // @ts-expect-error module may not be installed
+    nuxt.hook('tailwindcss:config', (tailwindConfig) => {
+      if (!importPT) return;
+      tailwindConfig.content = tailwindConfig.content ?? { files: [] };
+      (Array.isArray(tailwindConfig.content) ? tailwindConfig.content : tailwindConfig.content.files).push(resolver.resolve(importPT.from));
+    });
   }
 });
