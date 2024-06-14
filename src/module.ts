@@ -8,7 +8,7 @@ export default defineNuxtModule<ModuleOptions>({
     name: 'nuxt-primevue',
     configKey: 'primevue',
     compatibility: {
-      nuxt: '^3.0.0'
+      nuxt: '>=3.0.0'
     }
   },
   defaults: {
