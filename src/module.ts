@@ -103,10 +103,8 @@ export default defineNuxtPlugin(({ vueApp }) => {
   const runtimeConfig = useRuntimeConfig();
   const config = runtimeConfig?.public?.primevue ?? {};
   const { usePrimeVue = true, options = {} } = config;
-  const pt = ${importPT ? `{ pt: ${importPT.as} }` : `{}`};
-  const theme = ${hasTheme ? `{ theme: ${importTheme.as} }` : `{}`};
 
-  usePrimeVue && vueApp.use(PrimeVue, { ...options, ...pt, ...theme });
+  usePrimeVue && vueApp.use(PrimeVue, { ...options, ...${importPT ? `{ pt: ${importPT.as} }` : `{}`}, ...${hasTheme ? `{ theme: ${importTheme.as} }` : `{}`} });
   ${registered.services.map((service: any) => `vueApp.use(${service.as});`).join('\n')}
   ${registered.directives.map((directive: any) => `vueApp.directive('${directive.name}', ${directive.as});`).join('\n')}
 });
